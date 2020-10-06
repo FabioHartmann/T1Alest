@@ -21,6 +21,30 @@ public class Acidente {
     private String turno;
     private String regiao;
 
+    public Acidente(String logradouro, String nomeLog, String tipoAcidente, String diaSemana, int feridos, int fatais,
+                    int auto, int taxi, int lotacao, int onibusUrb, int onibusInt, int caminhao, int moto, int carroca,
+                    int bicicleta, String tempo, String turno, String regiao)
+    {
+        this.logradouro = logradouro;
+        this.nomeLog = nomeLog;
+        this.tipoAcidente = tipoAcidente;
+        this.diaSemana = diaSemana;
+        this.feridos = feridos;
+        this.fatais = fatais;
+        this.auto = auto;
+        this.taxi = taxi;
+        this.lotacao = lotacao;
+        this.onibusUrb = onibusUrb;
+        this.onibusInt = onibusInt;
+        this.caminhao = caminhao;
+        this.moto = moto;
+        this.carroca = carroca;
+        this.bicicleta = bicicleta;
+        this.tempo = tempo;
+        this.turno = turno;
+        this.regiao = regiao;
+    }
+
     public String getLogradouro() {
         return logradouro;
     }
