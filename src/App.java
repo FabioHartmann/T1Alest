@@ -7,13 +7,12 @@ public class App {
         ListOfStreet listOfStreet = new ListOfStreet();
         listOfStreet.addSortedList(acidentes);
 
-        for (int i = 0; i < 5; i++)
-        {
-            ListOfAcidente list = listOfStreet.get(i);
-            System.out.println(list.size());
-            System.out.println(list.get(0).getNomeLog());
-            System.out.println(list.diaComMaisAcidentes(list.get(0).getNomeLog()));
-            System.out.println("----------------");
-        }
+        System.out.println("---------------------------------");
+        System.out.println("Total de acidente de moto de todos os logradouros: " + listOfStreet.acidentesComMoto());
+        System.out.println("Logradouro com mais acidentes: " + listOfStreet.logComMaisAcidente());
+        System.out.println("Total de acidentes: " + acidentes.size());
+        System.out.println("---------------------------------");
+
+        new Navigator(listOfStreet);
     }
 }

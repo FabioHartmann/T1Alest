@@ -18,6 +18,7 @@ public class ListOfAcidente {
 
     /**
      * Construtor da lista.
+     * O(1)
      */
     public ListOfAcidente() {
         header = new Node(null, null, null);
@@ -30,6 +31,7 @@ public class ListOfAcidente {
 
     /**
      * Retorna true se a lista nao contem elementos.
+     * O(1)
      * @return true se a lista nao contem elementos
      */
     public boolean isEmpty() {
@@ -46,6 +48,7 @@ public class ListOfAcidente {
 
     /**
      * Esvazia a lista
+     * O(1)
      */
     public void clear() {
         header.next = trailer;
@@ -53,7 +56,11 @@ public class ListOfAcidente {
         count = 0;
     }
 
-    // O(1)
+    /**
+     * Adiciona um acidente na última posição
+     * O(1)
+     * @param acidente Acidente a ser adicionado
+     */
     public void add(Acidente acidente)
     {
         Node n = new Node(acidente, trailer.prev, trailer);
@@ -62,7 +69,12 @@ public class ListOfAcidente {
         count++;
     }
 
-    // O(n)
+    /**
+     * Pega o acidente no index fornecido
+     * O(n)
+     * @param index índice
+     * @return Acidente acidente
+     */
     public Acidente get(int index)
     {
         if (index < 0 || index >= count) throw new IndexOutOfBoundsException("Index fora do intervalo, index: " + index);
@@ -75,7 +87,11 @@ public class ListOfAcidente {
         return aux.element;
     }
 
-    // O(n)
+    /**
+     * Pega o total de acidentes envolvendo moto
+     * O(n)
+     * @return int total
+     */
     public int acidentesComMoto()
     {
         Node aux = header;
@@ -88,7 +104,12 @@ public class ListOfAcidente {
         return total;
     }
 
-    // O(n)
+    /**
+     * Pega o nome do dia da semana com mais acidentes em determinada rua
+     * O(n)
+     * @param rua Rua para verificar
+     * @return String nome do dia da semana
+     */
     public String diaComMaisAcidentes(String rua)
     {
         int seg=0, ter=0, qua=0, qui=0, sex=0, sab=0, dom=0;
@@ -126,27 +147,43 @@ public class ListOfAcidente {
         return name;
     }
 
+    /**
+     * Pega o próximo acidentes
+     * O(1)
+     * @return Acidente acidente
+     */
     public Acidente next()
     {
-        if (current == null || current.next == null) return null;
+        if (current == trailer) return null;
         current = current.next;
         return current.element;
     }
 
+    /**
+     * Pega o acidente anterior
+     * O(1)
+     * @return Acidente acidente
+     */
     public Acidente prev()
     {
-        if (current == null || current.prev == null) return null;
+        if (current == header) return null;
         current = current.prev;
         return current.element;
     }
 
-    public void resetPrev()
-    {
+    /**
+     * Reseta o iterator retornando para a primeira posição
+     * O(1)
+     */
+    public void resetPrev() {
         current = header;
     }
 
-    public void resetNext()
-    {
+    /**
+     * Reseta o iterator retornando para a última posição
+     * O(1)
+     */
+    public void resetNext() {
         current = trailer;
     }
 
