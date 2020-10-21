@@ -20,12 +20,14 @@ public class ListOfStreet {
 
     /**
      * Construtor da lista.
+     * O(1)
      */
     public ListOfStreet() {
         header = new Node(null, null, null, null);
         trailer = new Node(null, null, null, null);
         header.next = trailer;
         trailer.prev = header;
+        current = header;
         count = 0;
     }
 
@@ -41,6 +43,7 @@ public class ListOfStreet {
     /**
      * Retorna o numero de elementos da lista.
      * @return o numero de elementos da lista
+     * O(1)
      */
     public int size() {
         return count;
@@ -60,9 +63,25 @@ public class ListOfStreet {
      * Adiciona um acidente de forma ordenada.
      * @param acidente Acidentes
      */
-    public void addSorted(Acidente acidente)
-    {
-        // TODO
+    public void addSorted(Acidente acidente) {
+        Node aux = header;
+        String streetName = acidente.getNomeLog();
+        while((aux = aux.next) != null && aux != trailer)
+        {
+            int cmp = aux.street.compareTo(streetName);
+            if (cmp == 0) {
+                aux.element.add(acidente);
+                return;
+            }
+            else if (cmp > 0) {
+                break;
+            }
+        }
+        ListOfAcidente listOfAcidente = new ListOfAcidente();
+        listOfAcidente.add(acidente);
+        Node node = new Node(listOfAcidente, acidente.getNomeLog(), aux.prev, aux);
+        aux.prev.next = node;
+        aux.prev = node;
     }
 
     /**
@@ -70,10 +89,11 @@ public class ListOfStreet {
      * O(n log n)
      * @param acidentes lista de acidentes
      */
-    public void addSortedList(ListOfAcidente acidentes)
-    {
+    public void addSortedList(ListOfAcidente acidentes) {
+        // O(n log n)
         ListOfAcidente sorted = acidentes.getSorted();
 
+        // O(n)
         Node aux = header;
         if (count == 0)
         {
@@ -105,8 +125,8 @@ public class ListOfStreet {
                 ListOfAcidente acList = new ListOfAcidente();
                 acList.add(ac);
                 Node n = new Node(acList, currentName, aux, aux.next);
-                aux.next = n;
                 aux.next.prev = n;
+                aux.next = n;
                 aux = n;
                 count++;
             }
@@ -136,9 +156,8 @@ public class ListOfStreet {
      * O(1)
      * @return ListOfAcidente lista de acidentes
      */
-    ListOfAcidente next()
-    {
-        if (current == null) return null;
+    ListOfAcidente next() {
+        if (current == trailer) return null;
         current = current.next;
         return current.element;
     }
@@ -148,9 +167,8 @@ public class ListOfStreet {
      * O(1)
      * @return ListOfAcidente lista de acidentes
      */
-    ListOfAcidente prev()
-    {
-        if (current == null) return null;
+    ListOfAcidente prev() {
+        if (current == header) return null;
         current = current.prev;
         return current.element;
     }
@@ -159,28 +177,53 @@ public class ListOfStreet {
      * Reseta o iterator retornando para a primeira posição
      * O(1)
      */
-    void resetPrev()
-    {
-        current = header.next;
+    void resetPrev() {
+        current = header;
     }
 
     /**
      * Reseta o iterator retornando para a última posição
      * O(1)
      */
-    void resetNext()
-    {
-        current = trailer.prev;
+    void resetNext() {
+        current = trailer;
     }
 
     //  1. Rua/av/trav na qual ocorreram mais acidentes;
-    public String logComMaisAcidente(){
-        // TODO
-        return "";
+    public String logComMaisAcidente() {
+        Node aux = header;
+        String streetMaisAcidentes = "";
+        int maiorNumeroAcidentes = -1;
+        while((aux = aux.next) != null && aux.element != null) {
+            ListOfAcidente listOfAcidente = aux.element;
+            if (listOfAcidente.size() > maiorNumeroAcidentes) {
+                maiorNumeroAcidentes = listOfAcidente.size();
+                streetMaisAcidentes = aux.street;
+            }
+        }
+        return streetMaisAcidentes;
     }
 
-    // TODO
-    //  4. Permitir navegar pelos acidentes ordenados por rua/av/trav, isto é, avançar e retroceder, apresentando
-    //  também o total de acidentes desta rua/av/trav.
+    /**
+     * Pega o total de acidentes envolvendo moto
+     * O(n * m)      n = total de ruas     m = total de acidentes de uma rua
+     * @return int total
+     */
+    public int acidentesComMoto()
+    {
+        Node aux = header;
+        int total = 0;
+        for (int i = 0; i < count; i++)
+        {
+            aux = aux.next;
+            total += aux.element.acidentesComMoto();
+        }
+        return total;
+    }
+
+    public boolean containsStreet(String street) {
+        // TODO
+        return false;
+    }
 
 }
