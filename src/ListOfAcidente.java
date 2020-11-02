@@ -107,10 +107,9 @@ public class ListOfAcidente {
     /**
      * Pega o nome do dia da semana com mais acidentes em determinada rua
      * O(n)
-     * @param rua Rua para verificar
      * @return String nome do dia da semana
      */
-    public String diaComMaisAcidentes(String rua)
+    public String diaComMaisAcidentes()
     {
         int seg=0, ter=0, qua=0, qui=0, sex=0, sab=0, dom=0;
 
@@ -119,8 +118,6 @@ public class ListOfAcidente {
         {
             aux = aux.next;
             Acidente ac = aux.element;
-            if (ac.getNomeLog().equals(rua))
-            {
                 switch(ac.getDiaSemana())
                 {
                     case "SEGUNDA-FEIRA": seg++; break;
@@ -131,7 +128,6 @@ public class ListOfAcidente {
                     case "SABADO": sab++; break;
                     case "DOMINGO": dom++; break;
                 }
-            }
         }
 
         int max = -1;

@@ -221,9 +221,17 @@ public class ListOfStreet {
         return total;
     }
 
-    public boolean containsStreet(String street) {
-        // TODO
-        return false;
+    public void showDayWithMoreAccidentByStreet(String rua) {
+        Node aux = header.next;
+        while (aux != trailer){
+            if(aux.street.equals(rua)){
+                System.out.println("Dia com mais acidentes:");
+                System.out.println(aux.element.diaComMaisAcidentes());
+                return;
+            }
+            aux = aux.next;
+        }
+        System.out.println("Esta rua não existe no sistema");
     }
 
 }

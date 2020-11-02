@@ -20,8 +20,8 @@ public class Navigator {
         System.out.println("Total de acidentes: " + curList.size());
         System.out.println("Total de acidente envolvendo moto: " + curList.acidentesComMoto());
         System.out.println("---------------------------------");
-        System.out.print("Digite \"A\" para avançar e \"R\" para retroceder: ");
-        String input = in.next();
+        System.out.print("Digite \"A\" para avançar, \"R\" para retroceder ou o nome do logradouro para encontrar o dia com mais acidentes: ");
+        String input = in.nextLine();
         ListOfAcidente newList;
         switch (input) {
             case "A":
@@ -43,7 +43,7 @@ public class Navigator {
                 }
                 break;
             default:
-                System.out.println("Digite um input válido");
+                listOfStreet.showDayWithMoreAccidentByStreet(input.toUpperCase());
                 break;
         }
         loop();

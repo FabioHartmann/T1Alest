@@ -1,5 +1,3 @@
-import java.time.LocalDateTime;
-
 public class Acidente {
 
     private String logradouro;
